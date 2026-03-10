@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PYXEL Studios — Agencia Digital</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<!-- Noise overlay -->
+<div class="noise"></div>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+<div class="nav__logo">
+    <div class="nav__logo-icon">P</div>
+    <span>PYXEL <strong>Studios</strong></span>
+</div>
+<ul class="nav__links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+</ul>
+<a href="#contacto" class="btn btn--outline nav__cta">Hablemos</a>
+<button class="nav__burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+</button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+<ul>
+    <li><a href="#servicios" class="mobile-link">Servicios</a></li>
+    <li><a href="#proyectos" class="mobile-link">Proyectos</a></li>
+    <li><a href="#proceso" class="mobile-link">Proceso</a></li>
+    <li><a href="#contacto" class="mobile-link">Contacto</a></li>
+</ul>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+<div class="hero__bg">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+    <div class="grid-lines"></div>
+</div>
+
+<div class="hero__content">
+    <div class="hero__badge reveal">
+    <span class="badge-dot"></span>
+    Agencia Digital Premium
+    </div>
+    <h1 class="hero__title reveal">
+    Creamos<br />
+    <span class="gradient-text">experiencias</span><br />
+    digitales que<br />
+    <em>impactan.</em>
+    </h1>
+    <p class="hero__sub reveal">
+    Diseño web profesional, ecommerce, publicidad digital y más.<br />
+    Transformamos tu presencia online en resultados reales.
+    </p>
+    <div class="hero__actions reveal">
+    <a href="#proyectos" class="btn btn--primary">Ver proyectos</a>
+    <a href="#servicios" class="btn btn--ghost">Nuestros servicios</a>
+    </div>
+</div>
+
+<div class="hero__scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+</div>
+
+<!-- Floating stats -->
+<div class="hero__stats">
+    <div class="stat reveal-right">
+    <span class="stat__num" data-count="120">0</span><span class="stat__sym">+</span>
+    <p>Proyectos</p>
+    </div>
+    <div class="stat reveal-right" style="--delay:.1s">
+    <span class="stat__num" data-count="98">0</span><span class="stat__sym">%</span>
+    <p>Satisfacción</p>
+    </div>
+    <div class="stat reveal-right" style="--delay:.2s">
+    <span class="stat__num" data-count="5">0</span><span class="stat__sym">+</span>
+    <p>Años de exp.</p>
+    </div>
+</div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee-wrap">
+<div class="marquee">
+    <span>Páginas Web</span><span class="sep">✦</span>
+    <span>Landing Pages</span><span class="sep">✦</span>
+    <span>Ecommerce</span><span class="sep">✦</span>
+    <span>Redes Sociales</span><span class="sep">✦</span>
+    <span>Google Ads</span><span class="sep">✦</span>
+    <span>Meta Ads</span><span class="sep">✦</span>
+    <span>SEO</span><span class="sep">✦</span>
+    <span>Mantenimiento Web</span><span class="sep">✦</span>
+    <span>Páginas Web</span><span class="sep">✦</span>
+    <span>Landing Pages</span><span class="sep">✦</span>
+    <span>Ecommerce</span><span class="sep">✦</span>
+    <span>Redes Sociales</span><span class="sep">✦</span>
+    <span>Google Ads</span><span class="sep">✦</span>
+    <span>Meta Ads</span><span class="sep">✦</span>
+    <span>SEO</span><span class="sep">✦</span>
+    <span>Mantenimiento Web</span><span class="sep">✦</span>
+</div>
+</div>
+
+<!-- ===== SERVICIOS ===== -->
+<section class="section servicios" id="servicios">
+<div class="container">
+    <div class="section__header">
+    <span class="section__tag reveal">— Servicios</span>
+    <h2 class="section__title reveal">Que <span class="gradient-text">ofrecemos</span></h2>
+    <p class="section__desc reveal">Soluciones digitales completas para que tu negocio destaque y crezca en el mundo online.</p>
+    </div>
+
+    <div class="services__grid">
+
+    <div class="service-card reveal" data-index="0">
+        <div class="service-card__icon">
+        <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="6" width="32" height="24" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 34h12M20 30v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Páginas Institucionales</h3>
+        <p>Sitios web corporativos que transmiten profesionalismo y generan confianza en tu marca.</p>
+        <div class="service-card__arrow">→</div>
+    </div>
+
+    <div class="service-card reveal" data-index="1">
+        <div class="service-card__icon">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M8 12h24M8 20h16M8 28h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="30" cy="28" r="6" stroke="currentColor" stroke-width="2"/><path d="M33 31l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Landing Pages</h3>
+        <p>Páginas de conversión optimizadas para captar leads y maximizar tus campañas publicitarias.</p>
+        <div class="service-card__arrow">→</div>
+    </div>
+
+    <div class="service-card reveal service-card--featured" data-index="2">
+        <div class="service-card__icon">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M6 14h28M6 26h28" stroke="currentColor" stroke-width="2"/><rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="2"/><path d="M16 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="20" r="3" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <h3>Tiendas Online</h3>
+        <p>Ecommerce potentes y escalables con experiencia de compra excepcional y gestión simplificada.</p>
+        <div class="service-card__arrow">→</div>
+        <div class="service-card__badge">Popular</div>
+    </div>
+
+    <div class="service-card reveal" data-index="3">
+        <div class="service-card__icon">
+        <svg viewBox="0 0 40 40" fill="none"><polyline points="6,28 14,18 20,23 28,12 34,18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Desarrollo Personalizado</h3>
+        <p>Soluciones web a medida con funcionalidades únicas adaptadas a las necesidades de tu negocio.</p>
+        <div class="service-card__arrow">→</div>
+    </div>
+
+    <div class="service-card reveal" data-index="4">
+        <div class="service-card__icon">
+        <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke="currentColor" stroke-width="2"/><ellipse cx="20" cy="20" rx="6" ry="14" stroke="currentColor" stroke-width="2"/><path d="M6 20h28" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <h3>Gestión de Redes Sociales</h3>
+        <p>Contenido estratégico y gestión profesional de tus redes para crecer tu comunidad y engagement.</p>
+        <div class="service-card__arrow">→</div>
+    </div>
+
+    <div class="service-card reveal" data-index="5">
+        <div class="service-card__icon">
+        <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/><rect x="22" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/><rect x="4" y="26" width="14" height="6" rx="2" stroke="currentColor" stroke-width="2"/><rect x="22" y="26" width="14" height="6" rx="2" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <h3>Publicidad Digital</h3>
+        <p>Campañas rentables en Meta Ads y Google Ads que llevan tus productos frente a tus clientes ideales.</p>
+        <div class="service-card__arrow">→</div>
+    </div>
+
+    <div class="service-card reveal" data-index="6">
+        <div class="service-card__icon">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M20 6v4M20 30v4M6 20h4M30 20h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>
+        </div>
+        <h3>Mantenimiento Web</h3>
+        <p>Tu sitio siempre actualizado, seguro y funcionando al 100%. Soporte técnico cuando lo necesitás.</p>
+        <div class="service-card__arrow">→</div>
+    </div>
+
+    </div>
+</div>
+</section>
+
+<!-- ===== PROYECTOS ===== -->
+<section class="section proyectos" id="proyectos">
+<div class="container">
+    <div class="section__header">
+    <span class="section__tag reveal">— Proyectos</span>
+    <h2 class="section__title reveal">Nuestro <span class="gradient-text">trabajo</span></h2>
+    <p class="section__desc reveal">Cada proyecto es una historia de transformación digital. Estos son algunos de nuestros trabajos.</p>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="projects__filters reveal">
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn" data-filter="web">Web</button>
+    <button class="filter-btn" data-filter="ecommerce">Ecommerce</button>
+    <button class="filter-btn" data-filter="landing">Landing Page</button>
+    </div>
+
+    <div class="projects__grid" id="projectsGrid">
+
+    <div class="project-card" data-cat="web">
+        <div class="project-card__img">
+        <div class="project-placeholder" style="--hue:270">
+            <div class="pp-grid"></div>
+            <span>WEB</span>
+        </div>
+        <div class="project-card__overlay">
+            <div class="project-card__info">
+            <h4>Nombre del Proyecto</h4>
+            <p>Página institucional</p>
+            <a href="#" class="btn btn--sm">Ver proyecto →</a>
+            </div>
+        </div>
+        </div>
+        <div class="project-card__meta">
+        <span class="project-tag">Web</span>
+        <span class="project-year">2024</span>
+        </div>
+    </div>
+
+    <div class="project-card" data-cat="ecommerce">
+        <div class="project-card__img">
+        <div class="project-placeholder" style="--hue:290">
+            <div class="pp-grid"></div>
+            <span>SHOP</span>
+        </div>
+        <div class="project-card__overlay">
+            <div class="project-card__info">
+            <h4>Tienda Online</h4>
+            <p>Ecommerce completo</p>
+            <a href="#" class="btn btn--sm">Ver proyecto →</a>
+            </div>
+        </div>
+        </div>
+        <div class="project-card__meta">
+        <span class="project-tag">Ecommerce</span>
+        <span class="project-year">2024</span>
+        </div>
+    </div>
+
+    <div class="project-card" data-cat="landing">
+        <div class="project-card__img">
+        <div class="project-placeholder" style="--hue:250">
+            <div class="pp-grid"></div>
+            <span>LANDING</span>
+        </div>
+        <div class="project-card__overlay">
+            <div class="project-card__info">
+            <h4>Landing de Conversión</h4>
+            <p>Alta tasa de conversión</p>
+            <a href="#" class="btn btn--sm">Ver proyecto →</a>
+            </div>
+        </div>
+        </div>
+        <div class="project-card__meta">
+        <span class="project-tag">Landing</span>
+        <span class="project-year">2025</span>
+        </div>
+    </div>
+
+    <div class="project-card" data-cat="web">
+        <div class="project-card__img">
+        <div class="project-placeholder" style="--hue:300">
+            <div class="pp-grid"></div>
+            <span>CORP</span>
+        </div>
+        <div class="project-card__overlay">
+            <div class="project-card__info">
+            <h4>Sitio Corporativo</h4>
+            <p>Diseño institucional</p>
+            <a href="#" class="btn btn--sm">Ver proyecto →</a>
+            </div>
+        </div>
+        </div>
+        <div class="project-card__meta">
+        <span class="project-tag">Web</span>
+        <span class="project-year">2025</span>
+        </div>
+    </div>
+
+    <div class="project-card" data-cat="ecommerce">
+        <div class="project-card__img">
+        <div class="project-placeholder" style="--hue:260">
+            <div class="pp-grid"></div>
+            <span>STORE</span>
+        </div>
+        <div class="project-card__overlay">
+            <div class="project-card__info">
+            <h4>E-Shop Premium</h4>
+            <p>Tienda de moda</p>
+            <a href="#" class="btn btn--sm">Ver proyecto →</a>
+            </div>
+        </div>
+        </div>
+        <div class="project-card__meta">
+        <span class="project-tag">Ecommerce</span>
+        <span class="project-year">2025</span>
+        </div>
+    </div>
+
+    <div class="project-card" data-cat="landing">
+        <div class="project-card__img">
+        <div class="project-placeholder" style="--hue:280">
+            <div class="pp-grid"></div>
+            <span>ADS</span>
+        </div>
+        <div class="project-card__overlay">
+            <div class="project-card__info">
+            <h4>Campaña Digital</h4>
+            <p>Landing + Meta Ads</p>
+            <a href="#" class="btn btn--sm">Ver proyecto →</a>
+            </div>
+        </div>
+        </div>
+        <div class="project-card__meta">
+        <span class="project-tag">Landing</span>
+        <span class="project-year">2025</span>
+        </div>
+    </div>
+
+    </div>
+</div>
+</section>
+
+<!-- ===== PROCESO ===== -->
+<section class="section proceso" id="proceso">
+<div class="container">
+    <div class="section__header">
+    <span class="section__tag reveal">— Proceso</span>
+    <h2 class="section__title reveal">Cómo <span class="gradient-text">trabajamos</span></h2>
+    </div>
+    <div class="process__timeline">
+    <div class="process__step reveal">
+        <div class="process__num">01</div>
+        <div class="process__body">
+        <h3>Descubrimiento</h3>
+        <p>Analizamos tu negocio, objetivos y audiencia para entender exactamente qué necesitás y cómo lograrlo.</p>
+        </div>
+    </div>
+    <div class="process__step reveal">
+        <div class="process__num">02</div>
+        <div class="process__body">
+        <h3>Diseño & Estrategia</h3>
+        <p>Creamos wireframes y prototipos visuales alineados con tu identidad de marca y los objetivos planteados.</p>
+        </div>
+    </div>
+    <div class="process__step reveal">
+        <div class="process__num">03</div>
+        <div class="process__body">
+        <h3>Desarrollo</h3>
+        <p>Construimos tu solución con las mejores tecnologías, enfocados en velocidad, seguridad y escalabilidad.</p>
+        </div>
+    </div>
+    <div class="process__step reveal">
+        <div class="process__num">04</div>
+        <div class="process__body">
+        <h3>Lanzamiento & Soporte</h3>
+        <p>Publicamos, medimos resultados y te acompañamos con soporte continuo para que crezcas sin límites.</p>
+        </div>
+    </div>
+    </div>
+</div>
+</section>
+
+<!-- ===== CTA BAND ===== -->
+<section class="cta-band">
+<div class="cta-band__orb"></div>
+<div class="container cta-band__inner">
+    <h2 class="reveal">¿Listo para<br /><span class="gradient-text">transformar</span> tu negocio?</h2>
+    <p class="reveal">Hablemos de tu proyecto sin compromiso.<br />La primera consulta es gratuita.</p>
+    <a href="#contacto" class="btn btn--primary btn--lg reveal">Comenzar ahora →</a>
+</div>
+</section>
+
+<!-- ===== CONTACTO ===== -->
+<section class="section contacto" id="contacto">
+<div class="container contacto__inner">
+    <div class="contacto__left">
+    <span class="section__tag reveal">— Contacto</span>
+    <h2 class="section__title reveal">Hablemos de<br /><span class="gradient-text">tu proyecto</span></h2>
+    <p class="reveal">Completá el formulario y nos ponemos en contacto en menos de 24 horas.</p>
+    <div class="contact__links reveal">
+        <a href="https://www.pyxelstudios.com" target="_blank" class="contact__link">
+        <span class="contact__link-icon">🌐</span>
+        www.pyxelstudios.com
+        </a>
+        <a href="mailto:hola@pyxelstudios.com" class="contact__link">
+        <span class="contact__link-icon">✉️</span>
+        hola@pyxelstudios.com
+        </a>
+    </div>
+    </div>
+
+    <div class="contacto__right reveal">
+    <div class="form-card">
+        <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" placeholder="Tu nombre" class="form-input" />
+        </div>
+        <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="tu@email.com" class="form-input" />
+        </div>
+        <div class="form-group">
+        <label>Servicio de interés</label>
+        <select class="form-input">
+            <option value="">Seleccioná un servicio</option>
+            <option>Página Institucional</option>
+            <option>Landing Page</option>
+            <option>Tienda Online (Ecommerce)</option>
+            <option>Desarrollo Personalizado</option>
+            <option>Gestión de Redes Sociales</option>
+            <option>Publicidad Digital</option>
+            <option>Mantenimiento Web</option>
+        </select>
+        </div>
+        <div class="form-group">
+        <label>Tu mensaje</label>
+        <textarea placeholder="Contanos sobre tu proyecto..." class="form-input" rows="4"></textarea>
+        </div>
+        <button class="btn btn--primary btn--full" id="submitBtn">
+        <span>Enviar mensaje</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+    </div>
+    </div>
+</div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+<div class="container footer__inner">
+    <div class="footer__logo">
+    <div class="nav__logo-icon">P</div>
+    <div>
+        <span>PYXEL <strong>Studios</strong></span>
+        <small>Agencia Digital Premium</small>
+    </div>
+    </div>
+    <div class="footer__links">
+    <a href="#servicios">Servicios</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#contacto">Contacto</a>
+    </div>
+    <p class="footer__copy">© 2025 PYXEL Studios. Todos los derechos reservados.</p>
+</div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
