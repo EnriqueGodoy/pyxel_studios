@@ -3,191 +3,246 @@ PYXEL Studios — main.js
 ===================================================== */
 
 /* ---- Custom Cursor ---- */
-const cursor = document.getElementById('cursor');
-const follower = document.getElementById('cursorFollower');
+const cursor         = document.getElementById('cursor');
+const cursorFollower = document.getElementById('cursorFollower');
 let mouseX = 0, mouseY = 0, follX = 0, follY = 0;
 
 document.addEventListener('mousemove', e => {
-mouseX = e.clientX; mouseY = e.clientY;
+mouseX = e.clientX;
+mouseY = e.clientY;
+if (cursor) {
 cursor.style.left = mouseX + 'px';
 cursor.style.top  = mouseY + 'px';
+}
 });
 
-// Smooth follower
 (function animFollower() {
 follX += (mouseX - follX) * 0.1;
 follY += (mouseY - follY) * 0.1;
-follower.style.left = follX + 'px';
-follower.style.top  = follY + 'px';
+if (cursorFollower) {
+cursorFollower.style.left = follX + 'px';
+cursorFollower.style.top  = follY + 'px';
+}
 requestAnimationFrame(animFollower);
 })();
 
-// Cursor scale on interactive elements
-document.querySelectorAll('a, button, .service-card, .project-card, .filter-btn').forEach(el => {
+document.querySelectorAll('a, button, .service-card, .showcase-card__screen').forEach(el => {
 el.addEventListener('mouseenter', () => {
-cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
-cursor.style.background = 'var(--purple-neon)';
+if (cursor) cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
 });
 el.addEventListener('mouseleave', () => {
-cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-cursor.style.background = 'var(--purple-neon)';
+if (cursor) cursor.style.transform = 'translate(-50%,-50%) scale(1)';
 });
 });
 
-/* ---- Navbar: scroll effect ---- */
+/* ---- Navbar scroll effect ---- */
 const nav = document.getElementById('nav');
-const onScroll = () => {
-nav.classList.toggle('scrolled', window.scrollY > 30);
-};
-window.addEventListener('scroll', onScroll, { passive: true });
-onScroll();
+function handleScroll() {
+if (nav) nav.classList.toggle('scrolled', window.scrollY > 30);
+}
+window.addEventListener('scroll', handleScroll, { passive: true });
+handleScroll();
 
 /* ---- Mobile burger menu ---- */
-const burger = document.getElementById('burger');
+const burger     = document.getElementById('burger');
 const mobileMenu = document.getElementById('mobileMenu');
 let menuOpen = false;
 
+if (burger && mobileMenu) {
 burger.addEventListener('click', () => {
 menuOpen = !menuOpen;
 mobileMenu.classList.toggle('open', menuOpen);
-// Animate spans
 const spans = burger.querySelectorAll('span');
 if (menuOpen) {
-spans[0].style.transform = 'rotate(45deg) translate(4.5px, 4.5px)';
-spans[1].style.opacity = '0';
-spans[2].style.transform = 'rotate(-45deg) translate(4.5px, -4.5px)';
+    spans[0].style.transform = 'rotate(45deg) translate(4.5px, 4.5px)';
+    spans[1].style.opacity   = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(4.5px, -4.5px)';
 } else {
-spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
 }
 });
+}
 
 document.querySelectorAll('.mobile-link').forEach(link => {
 link.addEventListener('click', () => {
 menuOpen = false;
-mobileMenu.classList.remove('open');
-const spans = burger.querySelectorAll('span');
-spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+if (mobileMenu) mobileMenu.classList.remove('open');
+if (burger) {
+    burger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+}
 });
 });
 
 /* ---- Scroll Reveal ---- */
-const revealEls = document.querySelectorAll('.reveal, .reveal-right');
-const revealObserver = new IntersectionObserver((entries) => {
+const revealObserver = new IntersectionObserver(entries => {
 entries.forEach(entry => {
 if (entry.isIntersecting) {
     entry.target.classList.add('visible');
 }
 });
-}, { threshold: 0.12 });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-revealEls.forEach(el => revealObserver.observe(el));
+document.querySelectorAll('.reveal, .reveal-right').forEach(el => {
+revealObserver.observe(el);
+});
 
 /* ---- Counter animation ---- */
-function animateCounter(el, target, duration = 1800) {
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+function animateCounter(el, target, duration) {
+duration = duration || 1600;
 let start = null;
-const step = (timestamp) => {
+function step(timestamp) {
 if (!start) start = timestamp;
 const progress = Math.min((timestamp - start) / duration, 1);
-// ease-out
-const val = Math.floor(easeOut(progress) * target);
-el.textContent = val;
-if (progress < 1) requestAnimationFrame(step);
-else el.textContent = target;
-};
+el.textContent = Math.floor(easeOutCubic(progress) * target);
+if (progress < 1) {
+    requestAnimationFrame(step);
+} else {
+    el.textContent = target;
+}
+}
 requestAnimationFrame(step);
 }
 
-function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-
-const statNums = document.querySelectorAll('.stat__num');
 const counterObserver = new IntersectionObserver(entries => {
 entries.forEach(entry => {
 if (entry.isIntersecting) {
-    const target = +entry.target.dataset.count;
+    const target = parseInt(entry.target.dataset.count, 10);
     animateCounter(entry.target, target);
     counterObserver.unobserve(entry.target);
 }
 });
 }, { threshold: 0.5 });
 
-statNums.forEach(el => counterObserver.observe(el));
+document.querySelectorAll('.stat__num').forEach(el => counterObserver.observe(el));
 
-/* ---- Project filter ---- */
-const filterBtns = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
-
-filterBtns.forEach(btn => {
+/* ---- Day / Night image toggle ---- */
+document.querySelectorAll('.toggle-btn').forEach(btn => {
 btn.addEventListener('click', () => {
-// Update active button
-filterBtns.forEach(b => b.classList.remove('active'));
+const project = btn.dataset.project;
+const mode    = btn.dataset.mode;
+
+// Update active button state
+document.querySelectorAll('.toggle-btn[data-project="' + project + '"]').forEach(b => {
+    b.classList.remove('active');
+});
 btn.classList.add('active');
 
-const filter = btn.dataset.filter;
+// Swap images
+const dayImg   = document.getElementById(project + '-day');
+const nightImg = document.getElementById(project + '-night');
 
-projectCards.forEach((card, i) => {
-    const cat = card.dataset.cat;
-    const show = filter === 'all' || cat === filter;
+if (!dayImg || !nightImg) return;
 
-    if (show) {
-    card.style.display = '';
-    card.style.animationDelay = (i * 0.08) + 's';
-    card.style.animation = 'none';
-    // Force reflow
-    card.offsetHeight;
-    card.style.animation = '';
-    } else {
-    card.style.display = 'none';
-    }
-});
+if (mode === 'day') {
+    dayImg.classList.add('active');
+    nightImg.classList.remove('active');
+} else {
+    nightImg.classList.add('active');
+    dayImg.classList.remove('active');
+}
 });
 });
 
-/* ---- Contact form ---- */
-const submitBtn = document.getElementById('submitBtn');
+/* ---- Contact form — WhatsApp + Email ---- */
+var WA_NUMBER = '595986420754';
+var EMAIL_TO  = 'enriquegodoy2003.eg' + '@' + 'gmail.com'; // split to avoid scrapers
+
+var submitBtn = document.getElementById('submitBtn');
 if (submitBtn) {
-submitBtn.addEventListener('click', () => {
-const inputs = document.querySelectorAll('.form-input');
-let valid = true;
+submitBtn.addEventListener('click', function() {
+var nombre   = document.getElementById('inputNombre');
+var email    = document.getElementById('inputEmail');
+var servicio = document.getElementById('inputServicio');
+var mensaje  = document.getElementById('inputMensaje');
 
-inputs.forEach(input => {
-    if (!input.value.trim()) {
-    input.style.borderColor = '#ff4d6d';
+var valid = true;
+[nombre, email, servicio, mensaje].forEach(function(field) {
+    if (!field || !field.value.trim()) {
     valid = false;
-    setTimeout(() => { input.style.borderColor = ''; }, 2000);
+    if (field) {
+        field.style.borderColor = '#ff4d6d';
+        field.style.boxShadow   = '0 0 0 3px rgba(255,77,109,.15)';
+        setTimeout(function() {
+        field.style.borderColor = '';
+        field.style.boxShadow   = '';
+        }, 2500);
+    }
     }
 });
 
-if (valid) {
-    submitBtn.innerHTML = '<span>¡Mensaje enviado! ✓</span>';
-    submitBtn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-    submitBtn.style.boxShadow = '0 0 30px rgba(34,197,94,.3)';
-    setTimeout(() => {
+if (!valid) return;
+
+var n = nombre.value.trim();
+var e = email.value.trim();
+var s = servicio.value.trim();
+var m = mensaje.value.trim();
+
+// 1) Open WhatsApp with pre-filled message
+var waText = encodeURIComponent(
+    '¡Hola PYXEL Studios! 👋\n\n' +
+    '*Nombre:* ' + n + '\n' +
+    '*Email:* ' + e + '\n' +
+    '*Servicio:* ' + s + '\n\n' +
+    '*Mensaje:* ' + m
+);
+window.open('https://wa.me/' + WA_NUMBER + '?text=' + waText, '_blank');
+
+// 2) Open email client after short delay
+setTimeout(function() {
+    var subject = encodeURIComponent('[PYXEL Studios] Consulta de ' + n + ' — ' + s);
+    var body    = encodeURIComponent('Nombre: ' + n + '\nEmail: ' + e + '\nServicio: ' + s + '\n\nMensaje:\n' + m);
+    window.location.href = 'mailto:' + EMAIL_TO + '?subject=' + subject + '&body=' + body;
+}, 500);
+
+// Success feedback
+submitBtn.innerHTML = '<span>¡Mensaje enviado! ✓</span>';
+submitBtn.style.background  = 'linear-gradient(135deg, #22c55e, #16a34a)';
+submitBtn.style.boxShadow   = '0 0 30px rgba(34,197,94,.3)';
+
+// Reset after 4s
+setTimeout(function() {
+    [nombre, email, servicio, mensaje].forEach(function(f) { if (f) f.value = ''; });
     submitBtn.innerHTML = '<span>Enviar mensaje</span><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     submitBtn.style.background = '';
-    submitBtn.style.boxShadow = '';
-    }, 3500);
-}
+    submitBtn.style.boxShadow  = '';
+}, 4000);
 });
 }
 
 /* ---- Parallax orbs on mouse move ---- */
-const orbs = document.querySelectorAll('.orb');
-document.addEventListener('mousemove', e => {
-const cx = window.innerWidth  / 2;
-const cy = window.innerHeight / 2;
-const dx = (e.clientX - cx) / cx;
-const dy = (e.clientY - cy) / cy;
+document.addEventListener('mousemove', function(e) {
+var cx = window.innerWidth  / 2;
+var cy = window.innerHeight / 2;
+var dx = (e.clientX - cx) / cx;
+var dy = (e.clientY - cy) / cy;
+document.querySelectorAll('.orb').forEach(function(orb, i) {
+var f = (i + 1) * 14;
+orb.style.transform = 'translate(' + (dx * f) + 'px, ' + (dy * f) + 'px)';
+});
+});
 
-orbs.forEach((orb, i) => {
-const factor = (i + 1) * 12;
-orb.style.transform = `translate(${dx * factor}px, ${dy * factor}px)`;
+/* ---- Service cards 3D tilt ---- */
+document.querySelectorAll('.service-card').forEach(function(card) {
+card.addEventListener('mousemove', function(e) {
+var rect = card.getBoundingClientRect();
+var x = (e.clientX - rect.left) / rect.width  - 0.5;
+var y = (e.clientY - rect.top)  / rect.height - 0.5;
+card.style.transform  = 'translateY(-6px) rotateX(' + (-y * 7) + 'deg) rotateY(' + (x * 7) + 'deg)';
+card.style.transition = 'transform .1s';
+});
+card.addEventListener('mouseleave', function() {
+card.style.transform  = '';
+card.style.transition = 'transform .4s cubic-bezier(.16,1,.3,1), border-color .3s';
 });
 });
 
 /* ---- Smooth anchor scrolling ---- */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-a.addEventListener('click', e => {
-const target = document.querySelector(a.getAttribute('href'));
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+a.addEventListener('click', function(e) {
+var href   = a.getAttribute('href');
+var target = document.querySelector(href);
 if (target) {
     e.preventDefault();
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -195,51 +250,28 @@ if (target) {
 });
 });
 
-/* ---- Service cards stagger on reveal ---- */
-const serviceCards = document.querySelectorAll('.service-card');
-serviceCards.forEach((card, i) => {
-card.style.setProperty('--delay', (i * 0.08) + 's');
-});
+/* ---- Active nav link highlight on scroll ---- */
+var sections = document.querySelectorAll('section[id]');
+var navLinks  = document.querySelectorAll('.nav__links a');
 
-/* ---- Active nav link highlight ---- */
-const sections = document.querySelectorAll('section[id]');
-const navLinks  = document.querySelectorAll('.nav__links a');
-
-const sectionObserver = new IntersectionObserver(entries => {
-entries.forEach(entry => {
+var sectionObserver = new IntersectionObserver(function(entries) {
+entries.forEach(function(entry) {
 if (entry.isIntersecting) {
-    const id = entry.target.id;
-    navLinks.forEach(link => {
-    link.style.color = link.getAttribute('href') === '#' + id
-        ? 'var(--white)'
-        : '';
+    var id = entry.target.id;
+    navLinks.forEach(function(link) {
+    link.style.color = (link.getAttribute('href') === '#' + id) ? '#fff' : '';
     });
 }
 });
-}, { threshold: 0.4 });
+}, { threshold: 0.45 });
 
-sections.forEach(s => sectionObserver.observe(s));
+sections.forEach(function(s) { sectionObserver.observe(s); });
 
-/* ---- Tilt effect on service cards ---- */
-serviceCards.forEach(card => {
-card.addEventListener('mousemove', e => {
-const rect = card.getBoundingClientRect();
-const x = (e.clientX - rect.left) / rect.width  - 0.5;
-const y = (e.clientY - rect.top)  / rect.height - 0.5;
-card.style.transform = `translateY(-6px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
-card.style.transition = 'transform .1s';
-});
-card.addEventListener('mouseleave', () => {
-card.style.transform = '';
-card.style.transition = 'transform .4s cubic-bezier(.16,1,.3,1)';
-});
-});
-
-/* ---- Page load entrance ---- */
-window.addEventListener('load', () => {
-document.body.style.opacity = '0';
-document.body.style.transition = 'opacity .5s ease';
-requestAnimationFrame(() => {
+/* ---- Fade in on load ---- */
+window.addEventListener('load', function() {
+document.body.style.opacity    = '0';
+document.body.style.transition = 'opacity .45s ease';
+requestAnimationFrame(function() {
 document.body.style.opacity = '1';
 });
 });

@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>PYXEL Studios — Agencia Digital</title>
+<link rel="icon" type="image/png" href="logo.png" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,17 +12,14 @@
 </head>
 <body>
 
-<!-- Custom cursor -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-follower" id="cursorFollower"></div>
-
-<!-- Noise overlay -->
 <div class="noise"></div>
 
 <!-- ===== NAV ===== -->
 <nav class="nav" id="nav">
 <div class="nav__logo">
-    <div class="nav__logo-icon">P</div>
+    <img src="logo.png" alt="PYXEL Studios" class="nav__logo-img" />
     <span>PYXEL <strong>Studios</strong></span>
 </div>
 <ul class="nav__links">
@@ -36,7 +34,6 @@
 </button>
 </nav>
 
-<!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
 <ul>
     <li><a href="#servicios" class="mobile-link">Servicios</a></li>
@@ -54,7 +51,6 @@
     <div class="orb orb--3"></div>
     <div class="grid-lines"></div>
 </div>
-
 <div class="hero__content">
     <div class="hero__badge reveal">
     <span class="badge-dot"></span>
@@ -75,25 +71,22 @@
     <a href="#servicios" class="btn btn--ghost">Nuestros servicios</a>
     </div>
 </div>
-
 <div class="hero__scroll">
     <div class="scroll-line"></div>
     <span>Scroll</span>
 </div>
-
-<!-- Floating stats -->
 <div class="hero__stats">
     <div class="stat reveal-right">
-    <span class="stat__num" data-count="120">0</span><span class="stat__sym">+</span>
+    <span class="stat__num" data-count="3">0</span><span class="stat__sym">+</span>
     <p>Proyectos</p>
     </div>
     <div class="stat reveal-right" style="--delay:.1s">
-    <span class="stat__num" data-count="98">0</span><span class="stat__sym">%</span>
+    <span class="stat__num" data-count="100">0</span><span class="stat__sym">%</span>
     <p>Satisfacción</p>
     </div>
     <div class="stat reveal-right" style="--delay:.2s">
-    <span class="stat__num" data-count="5">0</span><span class="stat__sym">+</span>
-    <p>Años de exp.</p>
+    <span class="stat__num" data-count="1">0</span><span class="stat__sym">+</span>
+    <p>Años activos</p>
     </div>
 </div>
 </section>
@@ -128,10 +121,9 @@
     <h2 class="section__title reveal">Que <span class="gradient-text">ofrecemos</span></h2>
     <p class="section__desc reveal">Soluciones digitales completas para que tu negocio destaque y crezca en el mundo online.</p>
     </div>
-
     <div class="services__grid">
 
-    <div class="service-card reveal" data-index="0">
+    <div class="service-card reveal" style="--delay:0s">
         <div class="service-card__icon">
         <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="6" width="32" height="24" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 34h12M20 30v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
@@ -140,7 +132,7 @@
         <div class="service-card__arrow">→</div>
     </div>
 
-    <div class="service-card reveal" data-index="1">
+    <div class="service-card reveal" style="--delay:.08s">
         <div class="service-card__icon">
         <svg viewBox="0 0 40 40" fill="none"><path d="M8 12h24M8 20h16M8 28h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="30" cy="28" r="6" stroke="currentColor" stroke-width="2"/><path d="M33 31l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
@@ -149,7 +141,7 @@
         <div class="service-card__arrow">→</div>
     </div>
 
-    <div class="service-card reveal service-card--featured" data-index="2">
+    <div class="service-card reveal service-card--featured" style="--delay:.16s">
         <div class="service-card__icon">
         <svg viewBox="0 0 40 40" fill="none"><path d="M6 14h28M6 26h28" stroke="currentColor" stroke-width="2"/><rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="2"/><path d="M16 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="20" r="3" stroke="currentColor" stroke-width="2"/></svg>
         </div>
@@ -159,7 +151,7 @@
         <div class="service-card__badge">Popular</div>
     </div>
 
-    <div class="service-card reveal" data-index="3">
+    <div class="service-card reveal" style="--delay:.24s">
         <div class="service-card__icon">
         <svg viewBox="0 0 40 40" fill="none"><polyline points="6,28 14,18 20,23 28,12 34,18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
@@ -168,25 +160,25 @@
         <div class="service-card__arrow">→</div>
     </div>
 
-    <div class="service-card reveal" data-index="4">
+    <div class="service-card reveal" style="--delay:.32s">
         <div class="service-card__icon">
         <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke="currentColor" stroke-width="2"/><ellipse cx="20" cy="20" rx="6" ry="14" stroke="currentColor" stroke-width="2"/><path d="M6 20h28" stroke="currentColor" stroke-width="2"/></svg>
         </div>
         <h3>Gestión de Redes Sociales</h3>
-        <p>Contenido estratégico y gestión profesional de tus redes para crecer tu comunidad y engagement.</p>
+        <p>Contenido estratégico y gestión profesional de tus redes para crecer tu comunidad.</p>
         <div class="service-card__arrow">→</div>
     </div>
 
-    <div class="service-card reveal" data-index="5">
+    <div class="service-card reveal" style="--delay:.40s">
         <div class="service-card__icon">
         <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/><rect x="22" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/><rect x="4" y="26" width="14" height="6" rx="2" stroke="currentColor" stroke-width="2"/><rect x="22" y="26" width="14" height="6" rx="2" stroke="currentColor" stroke-width="2"/></svg>
         </div>
         <h3>Publicidad Digital</h3>
-        <p>Campañas rentables en Meta Ads y Google Ads que llevan tus productos frente a tus clientes ideales.</p>
+        <p>Campañas rentables en Meta Ads y Google Ads frente a tus clientes ideales.</p>
         <div class="service-card__arrow">→</div>
     </div>
 
-    <div class="service-card reveal" data-index="6">
+    <div class="service-card reveal" style="--delay:.48s">
         <div class="service-card__icon">
         <svg viewBox="0 0 40 40" fill="none"><path d="M20 6v4M20 30v4M6 20h4M30 20h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="20" r="8" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>
         </div>
@@ -205,139 +197,110 @@
     <div class="section__header">
     <span class="section__tag reveal">— Proyectos</span>
     <h2 class="section__title reveal">Nuestro <span class="gradient-text">trabajo</span></h2>
-    <p class="section__desc reveal">Cada proyecto es una historia de transformación digital. Estos son algunos de nuestros trabajos.</p>
+    <p class="section__desc reveal">Cada proyecto es una historia de transformación digital. Esto es lo que construimos hasta ahora — y recién estamos empezando.</p>
     </div>
 
-    <!-- Filter tabs -->
-    <div class="projects__filters reveal">
-    <button class="filter-btn active" data-filter="all">Todos</button>
-    <button class="filter-btn" data-filter="web">Web</button>
-    <button class="filter-btn" data-filter="ecommerce">Ecommerce</button>
-    <button class="filter-btn" data-filter="landing">Landing Page</button>
-    </div>
+    <div class="projects__showcase">
 
-    <div class="projects__grid" id="projectsGrid">
-
-    <div class="project-card" data-cat="web">
-        <div class="project-card__img">
-        <div class="project-placeholder" style="--hue:270">
-            <div class="pp-grid"></div>
-            <span>WEB</span>
+    <!-- PROJECT 1: Agrobalance -->
+    <div class="showcase-card reveal">
+        <div class="showcase-card__screen">
+        <div class="screen__bar">
+            <div class="screen__dots"><span></span><span></span><span></span></div>
+            <div class="screen__url">enriquegodoy.github.io/agrobalance_project</div>
         </div>
-        <div class="project-card__overlay">
-            <div class="project-card__info">
-            <h4>Nombre del Proyecto</h4>
-            <p>Página institucional</p>
-            <a href="#" class="btn btn--sm">Ver proyecto →</a>
-            </div>
+        <div class="screen__toggle">
+            <button class="toggle-btn active" data-mode="day" data-project="agro">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Día
+            </button>
+            <button class="toggle-btn" data-mode="night" data-project="agro">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Noche
+            </button>
         </div>
-        </div>
-        <div class="project-card__meta">
-        <span class="project-tag">Web</span>
-        <span class="project-year">2024</span>
-        </div>
-    </div>
-
-    <div class="project-card" data-cat="ecommerce">
-        <div class="project-card__img">
-        <div class="project-placeholder" style="--hue:290">
-            <div class="pp-grid"></div>
-            <span>SHOP</span>
-        </div>
-        <div class="project-card__overlay">
-            <div class="project-card__info">
-            <h4>Tienda Online</h4>
-            <p>Ecommerce completo</p>
-            <a href="#" class="btn btn--sm">Ver proyecto →</a>
-            </div>
+        <div class="screen__imgs">
+            <img src="agrobalance_dia.png"   alt="Agrobalance día"   class="screen__img active" id="agro-day"   />
+            <img src="agrobalance_noche.png" alt="Agrobalance noche" class="screen__img"        id="agro-night" />
         </div>
         </div>
-        <div class="project-card__meta">
-        <span class="project-tag">Ecommerce</span>
-        <span class="project-year">2024</span>
+        <div class="showcase-card__info">
+        <div class="showcase-card__tags">
+            <span class="project-tag">Landing Page</span>
+            <span class="project-year">2025</span>
+        </div>
+        <h3>Agrobalance</h3>
+        <p>Landing page para empresa de nutrición animal con modo día/noche, catálogo de productos y diseño orientado a productores agropecuarios.</p>
+        <a href="https://enriquegodoy.github.io/agrobalance_project/" target="_blank" class="btn btn--primary btn--sm">Ver sitio →</a>
         </div>
     </div>
 
-    <div class="project-card" data-cat="landing">
-        <div class="project-card__img">
-        <div class="project-placeholder" style="--hue:250">
-            <div class="pp-grid"></div>
-            <span>LANDING</span>
+    <!-- PROJECT 2: Satroni -->
+    <div class="showcase-card showcase-card--reverse reveal">
+        <div class="showcase-card__screen">
+        <div class="screen__bar">
+            <div class="screen__dots"><span></span><span></span><span></span></div>
+            <div class="screen__url">satroni.com</div>
         </div>
-        <div class="project-card__overlay">
-            <div class="project-card__info">
-            <h4>Landing de Conversión</h4>
-            <p>Alta tasa de conversión</p>
-            <a href="#" class="btn btn--sm">Ver proyecto →</a>
-            </div>
+        <div class="screen__toggle">
+            <button class="toggle-btn active" data-mode="day" data-project="satroni">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Día
+            </button>
+            <button class="toggle-btn" data-mode="night" data-project="satroni">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Noche
+            </button>
         </div>
-        </div>
-        <div class="project-card__meta">
-        <span class="project-tag">Landing</span>
-        <span class="project-year">2025</span>
-        </div>
-    </div>
-
-    <div class="project-card" data-cat="web">
-        <div class="project-card__img">
-        <div class="project-placeholder" style="--hue:300">
-            <div class="pp-grid"></div>
-            <span>CORP</span>
-        </div>
-        <div class="project-card__overlay">
-            <div class="project-card__info">
-            <h4>Sitio Corporativo</h4>
-            <p>Diseño institucional</p>
-            <a href="#" class="btn btn--sm">Ver proyecto →</a>
-            </div>
+        <div class="screen__imgs">
+            <img src="satroni_dia.png"   alt="Satroni día"   class="screen__img active" id="satroni-day"   />
+            <img src="satroni_noche.png" alt="Satroni noche" class="screen__img"        id="satroni-night" />
         </div>
         </div>
-        <div class="project-card__meta">
-        <span class="project-tag">Web</span>
-        <span class="project-year">2025</span>
+        <div class="showcase-card__info">
+        <div class="showcase-card__tags">
+            <span class="project-tag">Landing Page</span>
+            <span class="project-year">2025</span>
+        </div>
+        <h3>Satroni</h3>
+        <p>Tienda de tecnología con modo oscuro/claro, catálogo de calculadoras científicas, artículos electrónicos y compras Amazon sobre pedido.</p>
+        <a href="https://satroni.com" target="_blank" class="btn btn--primary btn--sm">Ver sitio →</a>
         </div>
     </div>
 
-    <div class="project-card" data-cat="ecommerce">
-        <div class="project-card__img">
-        <div class="project-placeholder" style="--hue:260">
-            <div class="pp-grid"></div>
-            <span>STORE</span>
+    <!-- PROJECT 3: Este sitio -->
+    <div class="showcase-card reveal">
+        <div class="showcase-card__screen showcase-card__screen--this">
+        <div class="screen__bar">
+            <div class="screen__dots"><span></span><span></span><span></span></div>
+            <div class="screen__url">pyxelstudios.com</div>
         </div>
-        <div class="project-card__overlay">
-            <div class="project-card__info">
-            <h4>E-Shop Premium</h4>
-            <p>Tienda de moda</p>
-            <a href="#" class="btn btn--sm">Ver proyecto →</a>
-            </div>
-        </div>
-        </div>
-        <div class="project-card__meta">
-        <span class="project-tag">Ecommerce</span>
-        <span class="project-year">2025</span>
-        </div>
-    </div>
-
-    <div class="project-card" data-cat="landing">
-        <div class="project-card__img">
-        <div class="project-placeholder" style="--hue:280">
-            <div class="pp-grid"></div>
-            <span>ADS</span>
-        </div>
-        <div class="project-card__overlay">
-            <div class="project-card__info">
-            <h4>Campaña Digital</h4>
-            <p>Landing + Meta Ads</p>
-            <a href="#" class="btn btn--sm">Ver proyecto →</a>
-            </div>
+        <div class="this-site-preview">
+            <div class="tsp__orb"></div>
+            <img src="logo.png" alt="PYXEL Studios" class="tsp__logo" />
+            <p class="tsp__label">PYXEL <strong>Studios</strong></p>
+            <span class="tsp__tag">✦ Este sitio</span>
         </div>
         </div>
-        <div class="project-card__meta">
-        <span class="project-tag">Landing</span>
-        <span class="project-year">2025</span>
+        <div class="showcase-card__info">
+        <div class="showcase-card__tags">
+            <span class="project-tag">Landing Page</span>
+            <span class="project-year">2025</span>
+        </div>
+        <h3>PYXEL Studios</h3>
+        <p>Nuestra propia landing — cursor personalizado, animaciones avanzadas, diseño premium negro/lila y formulario integrado con WhatsApp y email.</p>
+        <a href="#contacto" class="btn btn--primary btn--sm">Quiero algo así →</a>
         </div>
     </div>
 
+    </div>
+
+    <div class="projects__more reveal">
+    <div class="more-badge">
+        <span class="badge-dot"></span>
+        Más proyectos en camino — ¿El tuyo es el próximo?
+    </div>
+    <a href="#contacto" class="btn btn--ghost">Hablemos →</a>
     </div>
 </div>
 </section>
@@ -350,32 +313,32 @@
     <h2 class="section__title reveal">Cómo <span class="gradient-text">trabajamos</span></h2>
     </div>
     <div class="process__timeline">
-    <div class="process__step reveal">
+    <div class="process__step reveal" style="--delay:0s">
         <div class="process__num">01</div>
         <div class="process__body">
         <h3>Descubrimiento</h3>
-        <p>Analizamos tu negocio, objetivos y audiencia para entender exactamente qué necesitás y cómo lograrlo.</p>
+        <p>Analizamos tu negocio, objetivos y audiencia para entender exactamente qué necesitás.</p>
         </div>
     </div>
-    <div class="process__step reveal">
+    <div class="process__step reveal" style="--delay:.1s">
         <div class="process__num">02</div>
         <div class="process__body">
         <h3>Diseño & Estrategia</h3>
-        <p>Creamos wireframes y prototipos visuales alineados con tu identidad de marca y los objetivos planteados.</p>
+        <p>Creamos wireframes y prototipos visuales alineados con tu identidad de marca.</p>
         </div>
     </div>
-    <div class="process__step reveal">
+    <div class="process__step reveal" style="--delay:.2s">
         <div class="process__num">03</div>
         <div class="process__body">
         <h3>Desarrollo</h3>
-        <p>Construimos tu solución con las mejores tecnologías, enfocados en velocidad, seguridad y escalabilidad.</p>
+        <p>Construimos tu solución con las mejores tecnologías, enfocados en velocidad y seguridad.</p>
         </div>
     </div>
-    <div class="process__step reveal">
+    <div class="process__step reveal" style="--delay:.3s">
         <div class="process__num">04</div>
         <div class="process__body">
         <h3>Lanzamiento & Soporte</h3>
-        <p>Publicamos, medimos resultados y te acompañamos con soporte continuo para que crezcas sin límites.</p>
+        <p>Publicamos, medimos resultados y te acompañamos con soporte continuo.</p>
         </div>
     </div>
     </div>
@@ -398,32 +361,35 @@
     <div class="contacto__left">
     <span class="section__tag reveal">— Contacto</span>
     <h2 class="section__title reveal">Hablemos de<br /><span class="gradient-text">tu proyecto</span></h2>
-    <p class="reveal">Completá el formulario y nos ponemos en contacto en menos de 24 horas.</p>
+    <p class="reveal">Completá el formulario y te respondemos en menos de 24 horas por WhatsApp o email.</p>
     <div class="contact__links reveal">
-        <a href="https://www.pyxelstudios.com" target="_blank" class="contact__link">
-        <span class="contact__link-icon">🌐</span>
-        www.pyxelstudios.com
+        <a href="https://wa.me/595986420754" target="_blank" class="contact__link">
+        <span class="contact__link-icon">💬</span>
+        +595 986 420 754
         </a>
-        <a href="mailto:hola@pyxelstudios.com" class="contact__link">
+        <a href="mailto:enriquegodoy2003.eg@gmail.com" class="contact__link">
         <span class="contact__link-icon">✉️</span>
-        hola@pyxelstudios.com
+        enriquegodoy2003.eg@gmail.com
+        </a>
+        <a href="https://www.instagram.com/enriquegodoy_" target="_blank" class="contact__link">
+        <span class="contact__link-icon">📷</span>
+        @enriquegodoy_
         </a>
     </div>
     </div>
-
     <div class="contacto__right reveal">
     <div class="form-card">
         <div class="form-group">
-        <label>Nombre completo</label>
-        <input type="text" placeholder="Tu nombre" class="form-input" />
+        <label for="inputNombre">Nombre completo</label>
+        <input type="text" id="inputNombre" placeholder="Tu nombre" class="form-input" autocomplete="name" />
         </div>
         <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="tu@email.com" class="form-input" />
+        <label for="inputEmail">Email</label>
+        <input type="email" id="inputEmail" placeholder="tu@email.com" class="form-input" autocomplete="email" />
         </div>
         <div class="form-group">
-        <label>Servicio de interés</label>
-        <select class="form-input">
+        <label for="inputServicio">Servicio de interés</label>
+        <select id="inputServicio" class="form-input">
             <option value="">Seleccioná un servicio</option>
             <option>Página Institucional</option>
             <option>Landing Page</option>
@@ -435,13 +401,14 @@
         </select>
         </div>
         <div class="form-group">
-        <label>Tu mensaje</label>
-        <textarea placeholder="Contanos sobre tu proyecto..." class="form-input" rows="4"></textarea>
+        <label for="inputMensaje">Tu mensaje</label>
+        <textarea id="inputMensaje" placeholder="Contanos sobre tu proyecto..." class="form-input" rows="4"></textarea>
         </div>
         <button class="btn btn--primary btn--full" id="submitBtn">
         <span>Enviar mensaje</span>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
+        <p class="form__note">Te contactamos por WhatsApp y email en menos de 24h 🚀</p>
     </div>
     </div>
 </div>
@@ -451,9 +418,9 @@
 <footer class="footer">
 <div class="container footer__inner">
     <div class="footer__logo">
-    <div class="nav__logo-icon">P</div>
+    <img src="logo.png" alt="PYXEL Studios" class="footer__logo-img" />
     <div>
-        <span>PYXEL <strong>Studios</strong></span>
+        <span class="footer__brand">PYXEL <strong>Studios</strong></span>
         <small>Agencia Digital Premium</small>
     </div>
     </div>
@@ -463,7 +430,21 @@
     <a href="#proceso">Proceso</a>
     <a href="#contacto">Contacto</a>
     </div>
-    <p class="footer__copy">© 2025 PYXEL Studios. Todos los derechos reservados.</p>
+    <div class="footer__social">
+    <a href="https://wa.me/595986420754" target="_blank" class="social-icon" title="WhatsApp" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/enriquegodoy_" target="_blank" class="social-icon" title="Instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="mailto:enriquegodoy2003.eg@gmail.com" class="social-icon" title="Email" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </a>
+    </div>
+</div>
+<div class="container footer__bottom">
+    <p>© 2025 PYXEL Studios. Todos los derechos reservados.</p>
+    <p>Hecho con 💜 en Paraguay</p>
 </div>
 </footer>
 
