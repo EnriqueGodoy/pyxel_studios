@@ -52,13 +52,14 @@ if (burger && mobileMenu) {
 burger.addEventListener('click', () => {
 menuOpen = !menuOpen;
 mobileMenu.classList.toggle('open', menuOpen);
+burger.setAttribute('aria-expanded', menuOpen);
 const spans = burger.querySelectorAll('span');
 if (menuOpen) {
-    spans[0].style.transform = 'rotate(45deg) translate(4.5px, 4.5px)';
-    spans[1].style.opacity   = '0';
-    spans[2].style.transform = 'rotate(-45deg) translate(4.5px, -4.5px)';
+spans[0].style.transform = 'rotate(45deg) translate(4.5px, 4.5px)';
+spans[1].style.opacity   = '0';
+spans[2].style.transform = 'rotate(-45deg) translate(4.5px, -4.5px)';
 } else {
-    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
 }
 });
 }
@@ -68,7 +69,8 @@ link.addEventListener('click', () => {
 menuOpen = false;
 if (mobileMenu) mobileMenu.classList.remove('open');
 if (burger) {
-    burger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+burger.setAttribute('aria-expanded', 'false');
+burger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
 }
 });
 });
@@ -77,7 +79,7 @@ if (burger) {
 const revealObserver = new IntersectionObserver(entries => {
 entries.forEach(entry => {
 if (entry.isIntersecting) {
-    entry.target.classList.add('visible');
+entry.target.classList.add('visible');
 }
 });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
@@ -97,9 +99,9 @@ if (!start) start = timestamp;
 const progress = Math.min((timestamp - start) / duration, 1);
 el.textContent = Math.floor(easeOutCubic(progress) * target);
 if (progress < 1) {
-    requestAnimationFrame(step);
+requestAnimationFrame(step);
 } else {
-    el.textContent = target;
+el.textContent = target;
 }
 }
 requestAnimationFrame(step);
@@ -108,9 +110,9 @@ requestAnimationFrame(step);
 const counterObserver = new IntersectionObserver(entries => {
 entries.forEach(entry => {
 if (entry.isIntersecting) {
-    const target = parseInt(entry.target.dataset.count, 10);
-    animateCounter(entry.target, target);
-    counterObserver.unobserve(entry.target);
+const target = parseInt(entry.target.dataset.count, 10);
+animateCounter(entry.target, target);
+counterObserver.unobserve(entry.target);
 }
 });
 }, { threshold: 0.5 });
@@ -123,31 +125,89 @@ btn.addEventListener('click', () => {
 const project = btn.dataset.project;
 const mode    = btn.dataset.mode;
 
-// Update active button state
 document.querySelectorAll('.toggle-btn[data-project="' + project + '"]').forEach(b => {
-    b.classList.remove('active');
+b.classList.remove('active');
 });
 btn.classList.add('active');
 
-// Swap images
 const dayImg   = document.getElementById(project + '-day');
 const nightImg = document.getElementById(project + '-night');
 
 if (!dayImg || !nightImg) return;
 
 if (mode === 'day') {
-    dayImg.classList.add('active');
-    nightImg.classList.remove('active');
+dayImg.classList.add('active');
+nightImg.classList.remove('active');
 } else {
-    nightImg.classList.add('active');
-    dayImg.classList.remove('active');
+nightImg.classList.add('active');
+dayImg.classList.remove('active');
 }
 });
 });
 
+/* ---- SERVICE CARD MODALS ---- */
+function openModal(modalId) {
+const overlay = document.getElementById(modalId);
+if (!overlay) return;
+overlay.classList.add('active');
+document.body.style.overflow = 'hidden';
+// Focus trap: focus close button
+const closeBtn = overlay.querySelector('.modal-close');
+if (closeBtn) setTimeout(() => closeBtn.focus(), 50);
+}
+
+function closeModal(overlay) {
+if (!overlay) return;
+overlay.classList.remove('active');
+document.body.style.overflow = '';
+}
+
+// Open on card click / Enter / Space
+document.querySelectorAll('.service-card[data-modal]').forEach(card => {
+card.addEventListener('click', () => openModal(card.dataset.modal));
+card.addEventListener('keydown', e => {
+if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    openModal(card.dataset.modal);
+}
+});
+});
+
+// Close on X button
+document.querySelectorAll('.modal-close').forEach(btn => {
+btn.addEventListener('click', () => {
+const overlay = btn.closest('.modal-overlay');
+closeModal(overlay);
+});
+});
+
+// Close on CTA inside modal (navigate to contact then close)
+document.querySelectorAll('.modal-cta').forEach(cta => {
+cta.addEventListener('click', () => {
+const overlay = cta.closest('.modal-overlay');
+closeModal(overlay);
+});
+});
+
+// Close on overlay click (outside box)
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+overlay.addEventListener('click', e => {
+if (e.target === overlay) closeModal(overlay);
+});
+});
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+if (e.key === 'Escape') {
+document.querySelectorAll('.modal-overlay.active').forEach(overlay => {
+    closeModal(overlay);
+});
+}
+});
+
 /* ---- Contact form — WhatsApp + Email ---- */
 var WA_NUMBER = '595986420754';
-var EMAIL_TO  = 'enriquegodoy2003.eg' + '@' + 'gmail.com'; // split to avoid scrapers
+var EMAIL_TO  = 'enriquegodoy2003.eg' + '@' + 'gmail.com';
 
 var submitBtn = document.getElementById('submitBtn');
 if (submitBtn) {
@@ -159,17 +219,17 @@ var mensaje  = document.getElementById('inputMensaje');
 
 var valid = true;
 [nombre, email, servicio, mensaje].forEach(function(field) {
-    if (!field || !field.value.trim()) {
+if (!field || !field.value.trim()) {
     valid = false;
     if (field) {
-        field.style.borderColor = '#ff4d6d';
-        field.style.boxShadow   = '0 0 0 3px rgba(255,77,109,.15)';
-        setTimeout(function() {
+    field.style.borderColor = '#ff4d6d';
+    field.style.boxShadow   = '0 0 0 3px rgba(255,77,109,.15)';
+    setTimeout(function() {
         field.style.borderColor = '';
         field.style.boxShadow   = '';
-        }, 2500);
+    }, 2500);
     }
-    }
+}
 });
 
 if (!valid) return;
@@ -179,34 +239,30 @@ var e = email.value.trim();
 var s = servicio.value.trim();
 var m = mensaje.value.trim();
 
-// 1) Open WhatsApp with pre-filled message
 var waText = encodeURIComponent(
-    '¡Hola PYXEL Studios! 👋\n\n' +
-    '*Nombre:* ' + n + '\n' +
-    '*Email:* ' + e + '\n' +
-    '*Servicio:* ' + s + '\n\n' +
-    '*Mensaje:* ' + m
+'¡Hola PYXEL Studios! 👋\n\n' +
+'*Nombre:* ' + n + '\n' +
+'*Email:* ' + e + '\n' +
+'*Servicio:* ' + s + '\n\n' +
+'*Mensaje:* ' + m
 );
 window.open('https://wa.me/' + WA_NUMBER + '?text=' + waText, '_blank');
 
-// 2) Open email client after short delay
 setTimeout(function() {
-    var subject = encodeURIComponent('[PYXEL Studios] Consulta de ' + n + ' — ' + s);
-    var body    = encodeURIComponent('Nombre: ' + n + '\nEmail: ' + e + '\nServicio: ' + s + '\n\nMensaje:\n' + m);
-    window.location.href = 'mailto:' + EMAIL_TO + '?subject=' + subject + '&body=' + body;
+var subject = encodeURIComponent('[PYXEL Studios] Consulta de ' + n + ' — ' + s);
+var body    = encodeURIComponent('Nombre: ' + n + '\nEmail: ' + e + '\nServicio: ' + s + '\n\nMensaje:\n' + m);
+window.location.href = 'mailto:' + EMAIL_TO + '?subject=' + subject + '&body=' + body;
 }, 500);
 
-// Success feedback
 submitBtn.innerHTML = '<span>¡Mensaje enviado! ✓</span>';
 submitBtn.style.background  = 'linear-gradient(135deg, #22c55e, #16a34a)';
 submitBtn.style.boxShadow   = '0 0 30px rgba(34,197,94,.3)';
 
-// Reset after 4s
 setTimeout(function() {
-    [nombre, email, servicio, mensaje].forEach(function(f) { if (f) f.value = ''; });
-    submitBtn.innerHTML = '<span>Enviar mensaje</span><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    submitBtn.style.background = '';
-    submitBtn.style.boxShadow  = '';
+[nombre, email, servicio, mensaje].forEach(function(f) { if (f) f.value = ''; });
+submitBtn.innerHTML = '<span>Enviar mensaje</span><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+submitBtn.style.background = '';
+submitBtn.style.boxShadow  = '';
 }, 4000);
 });
 }
@@ -244,8 +300,8 @@ a.addEventListener('click', function(e) {
 var href   = a.getAttribute('href');
 var target = document.querySelector(href);
 if (target) {
-    e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+e.preventDefault();
+target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 });
 });
@@ -257,10 +313,10 @@ var navLinks  = document.querySelectorAll('.nav__links a');
 var sectionObserver = new IntersectionObserver(function(entries) {
 entries.forEach(function(entry) {
 if (entry.isIntersecting) {
-    var id = entry.target.id;
-    navLinks.forEach(function(link) {
+var id = entry.target.id;
+navLinks.forEach(function(link) {
     link.style.color = (link.getAttribute('href') === '#' + id) ? '#fff' : '';
-    });
+});
 }
 });
 }, { threshold: 0.45 });
