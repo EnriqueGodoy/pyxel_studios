@@ -145,15 +145,30 @@ dayImg.classList.remove('active');
 });
 });
 
-/* ---- SERVICE CARD MODALS ---- */
+/* =====================================================
+SERVICE CARD MODALS
++ Swipe down para cerrar (iPhone)
++ History API para botón back (Android / iPhone)
+===================================================== */
+
 function openModal(modalId) {
-const overlay = document.getElementById(modalId);
+var overlay = document.getElementById(modalId);
 if (!overlay) return;
 overlay.classList.add('active');
 document.body.style.overflow = 'hidden';
-// Focus trap: focus close button
-const closeBtn = overlay.querySelector('.modal-close');
-if (closeBtn) setTimeout(() => closeBtn.focus(), 50);
+
+// Agrega entrada al historial para que el botón "atrás" cierre el modal
+// en lugar de navegar a la página anterior (Android y Safari)
+if (window.history && window.history.pushState) {
+window.history.pushState({ modalOpen: true, modalId: modalId }, '', '');
+}
+
+// Focus en el botón cerrar para accesibilidad
+var closeBtn = overlay.querySelector('.modal-close');
+if (closeBtn) setTimeout(function() { closeBtn.focus(); }, 50);
+
+// Iniciar detección de swipe hacia abajo en el modal box
+initSwipeClose(overlay);
 }
 
 function closeModal(overlay) {
@@ -162,45 +177,139 @@ overlay.classList.remove('active');
 document.body.style.overflow = '';
 }
 
+// Botón "atrás" del navegador cierra el modal (Android + iPhone Safari)
+window.addEventListener('popstate', function(e) {
+var activeModal = document.querySelector('.modal-overlay.active');
+if (activeModal) {
+closeModal(activeModal);
+// No navegar: el popstate ya consumió el estado que pusimos
+}
+});
+
+/* ---- Swipe down para cerrar (iOS style) ---- */
+function initSwipeClose(overlay) {
+var box = overlay.querySelector('.modal-box');
+if (!box) return;
+
+var startY      = 0;
+var currentY    = 0;
+var isDragging  = false;
+var THRESHOLD   = 80; // px de arrastre para cerrar
+
+function onTouchStart(e) {
+// Solo iniciar drag si el scroll interno está en el top
+if (box.scrollTop > 0) return;
+startY     = e.touches[0].clientY;
+isDragging = true;
+box.style.transition = 'none';
+}
+
+function onTouchMove(e) {
+if (!isDragging) return;
+currentY = e.touches[0].clientY;
+var deltaY = currentY - startY;
+if (deltaY < 0) { deltaY = 0; } // No permite arrastrar hacia arriba
+box.style.transform = 'translateY(' + deltaY + 'px)';
+// Reduce opacidad del overlay mientras arrastra
+var opacity = Math.max(0, 1 - deltaY / 300);
+overlay.style.background = 'rgba(0,0,0,' + (0.75 * opacity) + ')';
+}
+
+function onTouchEnd() {
+if (!isDragging) return;
+isDragging = false;
+var deltaY = currentY - startY;
+box.style.transition = '';
+
+if (deltaY > THRESHOLD) {
+    // Supera el umbral → cerrar con animación
+    box.style.transform = 'translateY(100%)';
+    overlay.style.transition = 'opacity .25s';
+    overlay.style.opacity = '0';
+    setTimeout(function() {
+    closeModal(overlay);
+    box.style.transform   = '';
+    overlay.style.opacity = '';
+    overlay.style.transition = '';
+    overlay.style.background = '';
+    // Limpiar el state de historial si cerramos con swipe
+    if (window.history && window.history.state && window.history.state.modalOpen) {
+        window.history.back();
+    }
+    }, 250);
+} else {
+    // No llega al umbral → volver a la posición original
+    box.style.transform   = '';
+    overlay.style.background = '';
+}
+}
+
+// Remover listeners anteriores si los hay (re-apertura del mismo modal)
+box.removeEventListener('touchstart', box._swipeStart);
+box.removeEventListener('touchmove',  box._swipeMove);
+box.removeEventListener('touchend',   box._swipeEnd);
+
+// Guardar referencia para poder removerlos después
+box._swipeStart = onTouchStart;
+box._swipeMove  = onTouchMove;
+box._swipeEnd   = onTouchEnd;
+
+box.addEventListener('touchstart', onTouchStart, { passive: true });
+box.addEventListener('touchmove',  onTouchMove,  { passive: true });
+box.addEventListener('touchend',   onTouchEnd,   { passive: true });
+}
+
 // Open on card click / Enter / Space
-document.querySelectorAll('.service-card[data-modal]').forEach(card => {
-card.addEventListener('click', () => openModal(card.dataset.modal));
-card.addEventListener('keydown', e => {
+document.querySelectorAll('.service-card[data-modal]').forEach(function(card) {
+card.addEventListener('click', function() { openModal(card.dataset.modal); });
+card.addEventListener('keydown', function(e) {
 if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault();
-    openModal(card.dataset.modal);
+e.preventDefault();
+openModal(card.dataset.modal);
 }
 });
 });
 
 // Close on X button
-document.querySelectorAll('.modal-close').forEach(btn => {
-btn.addEventListener('click', () => {
-const overlay = btn.closest('.modal-overlay');
+document.querySelectorAll('.modal-close').forEach(function(btn) {
+btn.addEventListener('click', function() {
+var overlay = btn.closest('.modal-overlay');
 closeModal(overlay);
+// Volver en el historial si el modal lo había agregado
+if (window.history && window.history.state && window.history.state.modalOpen) {
+window.history.back();
+}
 });
 });
 
 // Close on CTA inside modal (navigate to contact then close)
-document.querySelectorAll('.modal-cta').forEach(cta => {
-cta.addEventListener('click', () => {
-const overlay = cta.closest('.modal-overlay');
+document.querySelectorAll('.modal-cta').forEach(function(cta) {
+cta.addEventListener('click', function() {
+var overlay = cta.closest('.modal-overlay');
 closeModal(overlay);
+if (window.history && window.history.state && window.history.state.modalOpen) {
+window.history.back();
+}
 });
 });
 
 // Close on overlay click (outside box)
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-overlay.addEventListener('click', e => {
-if (e.target === overlay) closeModal(overlay);
+document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+overlay.addEventListener('click', function(e) {
+if (e.target === overlay) {
+closeModal(overlay);
+if (window.history && window.history.state && window.history.state.modalOpen) {
+    window.history.back();
+}
+}
 });
 });
 
 // Close on Escape key
-document.addEventListener('keydown', e => {
+document.addEventListener('keydown', function(e) {
 if (e.key === 'Escape') {
-document.querySelectorAll('.modal-overlay.active').forEach(overlay => {
-    closeModal(overlay);
+document.querySelectorAll('.modal-overlay.active').forEach(function(overlay) {
+closeModal(overlay);
 });
 }
 });
@@ -220,15 +329,15 @@ var mensaje  = document.getElementById('inputMensaje');
 var valid = true;
 [nombre, email, servicio, mensaje].forEach(function(field) {
 if (!field || !field.value.trim()) {
-    valid = false;
-    if (field) {
-    field.style.borderColor = '#ff4d6d';
-    field.style.boxShadow   = '0 0 0 3px rgba(255,77,109,.15)';
-    setTimeout(function() {
-        field.style.borderColor = '';
-        field.style.boxShadow   = '';
-    }, 2500);
-    }
+valid = false;
+if (field) {
+field.style.borderColor = '#ff4d6d';
+field.style.boxShadow   = '0 0 0 3px rgba(255,77,109,.15)';
+setTimeout(function() {
+    field.style.borderColor = '';
+    field.style.boxShadow   = '';
+}, 2500);
+}
 }
 });
 
@@ -315,7 +424,7 @@ entries.forEach(function(entry) {
 if (entry.isIntersecting) {
 var id = entry.target.id;
 navLinks.forEach(function(link) {
-    link.style.color = (link.getAttribute('href') === '#' + id) ? '#fff' : '';
+link.style.color = (link.getAttribute('href') === '#' + id) ? '#fff' : '';
 });
 }
 });

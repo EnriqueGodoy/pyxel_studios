@@ -412,6 +412,8 @@ transition: opacity .3s var(--ease-out);
 .modal-overlay.active {
 opacity: 1; pointer-events: auto;
 }
+
+/* Modal box — desktop */
 .modal-box {
 background: var(--black-3);
 border: 1px solid var(--border);
@@ -432,14 +434,23 @@ transform: translateY(0) scale(1);
 .modal-box::-webkit-scrollbar { width: 3px; }
 .modal-box::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
 
+/* ---- Modal header con la X siempre visible ---- */
+.modal-header {
+display: flex;
+justify-content: flex-end;
+margin-bottom: 20px;
+/* En desktop la X ya está bien, no necesita sticky */
+}
+
 .modal-close {
-position: absolute; top: 18px; right: 18px;
-width: 34px; height: 34px; border-radius: 50%;
+width: 40px; height: 40px; border-radius: 50%;
 background: var(--white-10); border: 1px solid var(--border);
-color: var(--white-60); font-size: .95rem;
+color: var(--white-60); font-size: 1rem;
 display: flex; align-items: center; justify-content: center;
-cursor: none; transition: all .2s;
-line-height: 1;
+cursor: pointer; transition: all .2s;
+line-height: 1; flex-shrink: 0;
+/* En desktop cursor none era el original */
+cursor: none;
 }
 .modal-close:hover {
 background: var(--purple); border-color: var(--purple); color: #fff;
@@ -710,7 +721,6 @@ transition: color .2s; word-break: break-all;
 }
 .contact__link:hover { color: var(--purple-neon); }
 
-/* Íconos de contacto — SVG con color */
 .contact__link-icon {
 width: 40px; height: 40px; flex-shrink: 0;
 border-radius: 10px;
@@ -720,7 +730,6 @@ transition: all .25s;
 }
 .contact__link-icon svg { width: 18px; height: 18px; }
 
-/* WhatsApp */
 .contact__link-icon--wa {
 background: rgba(37, 211, 102, .1);
 color: #25d366;
@@ -731,7 +740,6 @@ background: #25d366; color: #fff; border-color: #25d366;
 transform: translateY(-2px);
 }
 
-/* Email */
 .contact__link-icon--email {
 background: rgba(155, 93, 229, .1);
 color: var(--purple-neon);
@@ -742,7 +750,6 @@ background: var(--purple); color: #fff; border-color: var(--purple);
 transform: translateY(-2px);
 }
 
-/* Instagram */
 .contact__link-icon--ig {
 background: rgba(228, 64, 95, .1);
 color: #e4405f;
@@ -904,19 +911,79 @@ RESPONSIVE — 640px (mobile)
 .projects__more { flex-direction: column; text-align: center; }
 .more-badge { justify-content: center; }
 
-/* Modal en mobile */
-.modal-overlay { padding: 12px; align-items: flex-end; }
-.modal-box {
-padding: 28px 20px;
-border-radius: 20px 20px 16px 16px;
-max-height: 88vh;
-transform: translateY(40px) scale(1);
+/* =====================================================
+MODAL MOBILE — bottom sheet nativo estilo iOS/Android
+===================================================== */
+.modal-overlay {
+padding: 0;
+align-items: flex-end;
+/* El overlay ocupa toda la pantalla incluyendo safe areas */
 }
-.modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
-.modal-box h3 { font-size: 1.3rem; }
-.modal-tagline { font-size: .88rem; }
-.modal-why p { font-size: .88rem; }
-.modal-benefits li { font-size: .86rem; }
+
+.modal-box {
+/* Sheet que sube desde abajo */
+border-radius: 20px 20px 0 0;
+max-height: 92vh;
+max-height: 92dvh;
+width: 100%;
+max-width: 100%;
+padding: 0;
+/* Permite scroll interno pero no del body */
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
+transform: translateY(60px);
+/* Respeta la safe area de iOS (home indicator) */
+padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+.modal-overlay.active .modal-box {
+transform: translateY(0);
+}
+
+/* Handle visual estilo iOS arriba del sheet */
+.modal-box::before {
+content: '';
+display: block;
+width: 36px;
+height: 4px;
+background: rgba(255,255,255,.2);
+border-radius: 2px;
+margin: 14px auto 0;
+}
+
+/* Header de la X — sticky en mobile para que siempre sea visible */
+.modal-header {
+position: sticky;
+top: 0;
+z-index: 10;
+background: var(--black-3);
+padding: 12px 20px 8px;
+margin-bottom: 0;
+/* Sombra sutil para separar del contenido al hacer scroll */
+border-bottom: 1px solid rgba(255,255,255,.04);
+}
+
+.modal-close {
+/* Tamaño más grande en mobile para facilitar el tap */
+width: 44px;
+height: 44px;
+font-size: 1.1rem;
+/* Cursor normal en touch */
+cursor: pointer;
+}
+
+/* Contenido del modal debajo del header sticky */
+.modal-icon,
+.modal-box h3,
+.modal-tagline,
+.modal-why,
+.modal-cta {
+margin-left: 20px;
+margin-right: 20px;
+}
+
+.modal-icon { margin-top: 20px; }
+.modal-cta  { margin-bottom: 24px; width: calc(100% - 40px); }
 
 /* Contact links en mobile */
 .contact__links { align-items: flex-start; width: 100%; }
@@ -925,6 +992,7 @@ transform: translateY(40px) scale(1);
 /* Disable custom cursor on touch */
 body { cursor: auto; }
 .cursor, .cursor-follower { display: none; }
+.btn, .modal-close, .toggle-btn, .service-card { cursor: pointer; }
 }
 
 /* =====================================================
@@ -937,7 +1005,7 @@ RESPONSIVE — 400px (small phones)
 .btn--lg { padding: 14px 28px; }
 .nav__logo span { display: none; }
 
-.modal-box { padding: 24px 16px; }
-.modal-icon { width: 46px; height: 46px; }
+.modal-box { max-height: 94vh; max-height: 94dvh; }
 .modal-box h3 { font-size: 1.15rem; }
+.modal-icon { width: 46px; height: 46px; }
 }
