@@ -147,8 +147,6 @@ dayImg.classList.remove('active');
 
 /* =====================================================
 SERVICE CARD MODALS
-+ Swipe down para cerrar (iPhone)
-+ History API para botón back (Android / iPhone)
 ===================================================== */
 
 function openModal(modalId) {
@@ -156,18 +154,11 @@ var overlay = document.getElementById(modalId);
 if (!overlay) return;
 overlay.classList.add('active');
 document.body.style.overflow = 'hidden';
-
-// Agrega entrada al historial para que el botón "atrás" cierre el modal
-// en lugar de navegar a la página anterior (Android y Safari)
 if (window.history && window.history.pushState) {
 window.history.pushState({ modalOpen: true, modalId: modalId }, '', '');
 }
-
-// Focus en el botón cerrar para accesibilidad
 var closeBtn = overlay.querySelector('.modal-close');
 if (closeBtn) setTimeout(function() { closeBtn.focus(); }, 50);
-
-// Iniciar detección de swipe hacia abajo en el modal box
 initSwipeClose(overlay);
 }
 
@@ -177,16 +168,13 @@ overlay.classList.remove('active');
 document.body.style.overflow = '';
 }
 
-// Botón "atrás" del navegador cierra el modal (Android + iPhone Safari)
 window.addEventListener('popstate', function(e) {
 var activeModal = document.querySelector('.modal-overlay.active');
 if (activeModal) {
 closeModal(activeModal);
-// No navegar: el popstate ya consumió el estado que pusimos
 }
 });
 
-/* ---- Swipe down para cerrar (iOS style) ---- */
 function initSwipeClose(overlay) {
 var box = overlay.querySelector('.modal-box');
 if (!box) return;
@@ -194,10 +182,9 @@ if (!box) return;
 var startY      = 0;
 var currentY    = 0;
 var isDragging  = false;
-var THRESHOLD   = 80; // px de arrastre para cerrar
+var THRESHOLD   = 80;
 
 function onTouchStart(e) {
-// Solo iniciar drag si el scroll interno está en el top
 if (box.scrollTop > 0) return;
 startY     = e.touches[0].clientY;
 isDragging = true;
@@ -208,9 +195,8 @@ function onTouchMove(e) {
 if (!isDragging) return;
 currentY = e.touches[0].clientY;
 var deltaY = currentY - startY;
-if (deltaY < 0) { deltaY = 0; } // No permite arrastrar hacia arriba
+if (deltaY < 0) { deltaY = 0; }
 box.style.transform = 'translateY(' + deltaY + 'px)';
-// Reduce opacidad del overlay mientras arrastra
 var opacity = Math.max(0, 1 - deltaY / 300);
 overlay.style.background = 'rgba(0,0,0,' + (0.75 * opacity) + ')';
 }
@@ -222,7 +208,6 @@ var deltaY = currentY - startY;
 box.style.transition = '';
 
 if (deltaY > THRESHOLD) {
-    // Supera el umbral → cerrar con animación
     box.style.transform = 'translateY(100%)';
     overlay.style.transition = 'opacity .25s';
     overlay.style.opacity = '0';
@@ -232,24 +217,20 @@ if (deltaY > THRESHOLD) {
     overlay.style.opacity = '';
     overlay.style.transition = '';
     overlay.style.background = '';
-    // Limpiar el state de historial si cerramos con swipe
     if (window.history && window.history.state && window.history.state.modalOpen) {
         window.history.back();
     }
     }, 250);
 } else {
-    // No llega al umbral → volver a la posición original
     box.style.transform   = '';
     overlay.style.background = '';
 }
 }
 
-// Remover listeners anteriores si los hay (re-apertura del mismo modal)
 box.removeEventListener('touchstart', box._swipeStart);
 box.removeEventListener('touchmove',  box._swipeMove);
 box.removeEventListener('touchend',   box._swipeEnd);
 
-// Guardar referencia para poder removerlos después
 box._swipeStart = onTouchStart;
 box._swipeMove  = onTouchMove;
 box._swipeEnd   = onTouchEnd;
@@ -259,7 +240,6 @@ box.addEventListener('touchmove',  onTouchMove,  { passive: true });
 box.addEventListener('touchend',   onTouchEnd,   { passive: true });
 }
 
-// Open on card click / Enter / Space
 document.querySelectorAll('.service-card[data-modal]').forEach(function(card) {
 card.addEventListener('click', function() { openModal(card.dataset.modal); });
 card.addEventListener('keydown', function(e) {
@@ -270,19 +250,16 @@ openModal(card.dataset.modal);
 });
 });
 
-// Close on X button
 document.querySelectorAll('.modal-close').forEach(function(btn) {
 btn.addEventListener('click', function() {
 var overlay = btn.closest('.modal-overlay');
 closeModal(overlay);
-// Volver en el historial si el modal lo había agregado
 if (window.history && window.history.state && window.history.state.modalOpen) {
 window.history.back();
 }
 });
 });
 
-// Close on CTA inside modal (navigate to contact then close)
 document.querySelectorAll('.modal-cta').forEach(function(cta) {
 cta.addEventListener('click', function() {
 var overlay = cta.closest('.modal-overlay');
@@ -293,7 +270,6 @@ window.history.back();
 });
 });
 
-// Close on overlay click (outside box)
 document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
 overlay.addEventListener('click', function(e) {
 if (e.target === overlay) {
@@ -305,7 +281,6 @@ if (window.history && window.history.state && window.history.state.modalOpen) {
 });
 });
 
-// Close on Escape key
 document.addEventListener('keydown', function(e) {
 if (e.key === 'Escape') {
 document.querySelectorAll('.modal-overlay.active').forEach(function(overlay) {
@@ -314,7 +289,7 @@ closeModal(overlay);
 }
 });
 
-/* ---- Contact form — WhatsApp + Email ---- */
+/* ---- Contact form ---- */
 var WA_NUMBER = '595986420754';
 var EMAIL_TO  = 'enriquegodoy2003.eg' + '@' + 'gmail.com';
 
@@ -348,13 +323,7 @@ var e = email.value.trim();
 var s = servicio.value.trim();
 var m = mensaje.value.trim();
 
-var waText = encodeURIComponent(
-'¡Hola PYXEL Studios! 👋\n\n' +
-'*Nombre:* ' + n + '\n' +
-'*Email:* ' + e + '\n' +
-'*Servicio:* ' + s + '\n\n' +
-'*Mensaje:* ' + m
-);
+var waText = encodeURIComponent('¡Hola PYXEL Studios! 👋\n\n*Nombre:* ' + n + '\n*Email:* ' + e + '\n*Servicio:* ' + s + '\n\n*Mensaje:* ' + m);
 window.open('https://wa.me/' + WA_NUMBER + '?text=' + waText, '_blank');
 
 setTimeout(function() {
@@ -376,7 +345,7 @@ submitBtn.style.boxShadow  = '';
 });
 }
 
-/* ---- Parallax orbs on mouse move ---- */
+/* ---- Parallax orbs ---- */
 document.addEventListener('mousemove', function(e) {
 var cx = window.innerWidth  / 2;
 var cy = window.innerHeight / 2;
@@ -415,7 +384,7 @@ target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 });
 
-/* ---- Active nav link highlight on scroll ---- */
+/* ---- Active nav link highlight ---- */
 var sections = document.querySelectorAll('section[id]');
 var navLinks  = document.querySelectorAll('.nav__links a');
 
